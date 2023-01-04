@@ -1,18 +1,24 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
-  </div>
+  <Navbar />
+  <div class="home">home</div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from "@/components/HelloWorld.vue";
-
+import { mapActions } from "vuex";
+import Navbar from "@/components/Header/Navbar.vue";
 export default {
   name: "HomeView",
   components: {
-    HelloWorld,
+    Navbar,
+  },
+  mounted() {
+    let user = localStorage.getItem("user-info");
+    if (!user) {
+      this.redirectTo({ val: "Sign-up" });
+    }
+  },
+  methods: {
+    ...mapActions(["redirectTo"]),
   },
 };
 </script>
